@@ -1,0 +1,30 @@
+{
+  "name": "git-clone-sparse-cli",
+  "version": "1.0.0",
+  "description": "指定要clone的目录，而不是整个项目clone",
+  "bin": {
+    "clone": "./bin/clone"
+  },
+  "files": [
+    "./bin/*"
+  ],
+  "scripts": {
+    "test": "export DEBUG=$npm_package_name && node ./bin/clone git@github.com:z-juln/pkg-template.git -o ./temp -d simple-pkg-ts/template"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/z-juln/git-clone-sparse-cli.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/z-juln/git-clone-sparse-cli/issues"
+  },
+  "homepage": "https://github.com/z-juln/git-clone-sparse-cli#readme",
+  "dependencies": {
+    "cac": "^6.7.12",
+    "debug": "^4.3.4",
+    "git-clone-sparse": "^1.0.8"
+  }
+}

@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+
+const { cac } = require('cac');
+const { name: pkgName, version } = require('../package.json');
+const path = require('path');
+const clone = require('git-clone-sparse').default;
+const cli = cac();
+const debug = require('debug')(pkgName);
+
+cli
+  .command('<repository>')
+  .option('--output, -o <outputDir>', '输出路径', { default: '.' })
+  .option('--target, -d <targetDir>', '目标目录, 如 -d packages/project-a', { default: '' })
+  .option('--rename, -r <renameTargetDir>', '路径映射, 对目标目录进行重写', { default: '' })
+  .option('--branch, -b <branch>', '分支, 如master、v1.0.0等', { default: 'master' })
+  .option('--with-dot-git', '是否保留.git目录', { default: false })
+  .action((repository, opts) => {
+    debug('opts: ', { repository, opts });
+    clone(repository, {
+      outputDir: path.resolve(opts.output),
+      targetDir: opts.target,
+      renameTargetDir: opts.rename,
+      withDotGit: opts.withDotGit,
+      branch: opts.branch,
+    });
+  });
+
+cli.help();
+cli.version(version);
+cli.parse();
