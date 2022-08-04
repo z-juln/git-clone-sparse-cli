@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+
+const { cac } = require('cac');
+const { name: packageName, version } = require('../package.json');
+const path = require('path');
+const { npmPull } = require('pull-sparse');
+const cli = cac();
+const debug = require('debug')(packageName);
+
+cli
+  .command('<pkgName>')
+  .option('--output, -o <outputDir>', '输出路径', { default: '.' })
+  .option('--target, -d <targetDir>', '目标目录, 如 -d ./template', { default: '' })
+  .option('--rename, -r <renameTargetDir>', '路径映射, 对目标目录进行重写', { default: '' })
+  .option('--registry <registryUrl>', 'npm源, 如 "https://registry.npmjs.org/" 等', { default: 'https://registry.npmjs.org/' })
+  .option('--tag, -t <tag>', '版本, 如latest、1.0.0等', { default: 'latest' })
+  .action((pkgName, opts) => {
+    debug('opts: ', { pkgName, opts });
+    npmPull(pkgName, {
+      outputDir: path.resolve(opts.output),
+      targetDir: opts.target,
+      renameTargetDir: opts.rename,
+      registryUrl: opts.registryUrl,
+      tag: opts.tag,
+    });
+  });
+
+cli.help();
+cli.version(version);
+cli.parse();

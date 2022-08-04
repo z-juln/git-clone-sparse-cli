@@ -3,7 +3,7 @@
 const { cac } = require('cac');
 const { name: pkgName, version } = require('../package.json');
 const path = require('path');
-const clone = require('git-clone-sparse').default;
+const { gitPull } = require('pull-sparse');
 const cli = cac();
 const debug = require('debug')(pkgName);
 
@@ -16,7 +16,7 @@ cli
   .option('--with-dot-git', '是否保留.git目录', { default: false })
   .action((repository, opts) => {
     debug('opts: ', { repository, opts });
-    clone(repository, {
+    gitPull(repository, {
       outputDir: path.resolve(opts.output),
       targetDir: opts.target,
       renameTargetDir: opts.rename,

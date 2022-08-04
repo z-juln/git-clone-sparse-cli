@@ -1,30 +1,33 @@
 {
-  "name": "git-clone-sparse-cli",
+  "name": "pull-sparse-cli",
   "version": "1.0.0",
-  "description": "指定要clone的目录，而不是整个项目clone",
+  "description": "从git/npm远程仓库中，指定要拉取的目录，而不是整个项目拉取",
   "bin": {
-    "clone": "./bin/clone"
+    "git-pull": "./bin/git-pull",
+    "npm-pull": "./bin/npm-pull"
   },
   "files": [
     "./bin/*"
   ],
   "scripts": {
-    "test": "export DEBUG=$npm_package_name && node ./bin/clone git@github.com:z-juln/pkg-template.git -o ./temp -d simple-pkg-ts/template"
+    "test": "npm run test:git & npm run test:npm",
+    "test:git": "export DEBUG=$npm_package_name && node ./bin/git-pull git@github.com:z-juln/pkg-template.git -o ./temp/git -d simple-pkg-ts/template",
+    "test:npm": "export DEBUG=$npm_package_name && node ./bin/npm-pull @juln/typeof -o ./temp/npm -d src/__test__ -r tests"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/z-juln/git-clone-sparse-cli.git"
+    "url": "git+https://github.com/z-juln/pull-sparse-cli.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/z-juln/git-clone-sparse-cli/issues"
+    "url": "https://github.com/z-juln/pull-sparse-cli/issues"
   },
-  "homepage": "https://github.com/z-juln/git-clone-sparse-cli#readme",
+  "homepage": "https://github.com/z-juln/pull-sparse-cli#readme",
   "dependencies": {
     "cac": "^6.7.12",
     "debug": "^4.3.4",
-    "git-clone-sparse": "^1.0.8"
+    "pull-sparse": "^1.0.0"
   }
 }
